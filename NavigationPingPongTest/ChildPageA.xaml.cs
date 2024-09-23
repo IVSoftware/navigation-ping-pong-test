@@ -1,0 +1,34 @@
+using System.Diagnostics;
+
+namespace NavigationPingPongTest;
+
+public partial class ChildPageA : ContentPage
+{
+    private static uint _instanceCounter = 0;
+	public ChildPageA()
+	{
+		_instanceCounter++;
+		Debug.Assert(_instanceCounter <= 1, "Expecting only one instance of this class.");
+		InitializeComponent();
+	}
+    protected override async void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+		await Task.Delay(App.PING_PONG_INTERVAL);
+        int tries = 1;
+        retry:
+        try
+		{
+			await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
+        }
+        catch (System.Runtime.InteropServices.COMException ex)
+        {
+            if (tries == 1) App.ReportError(ex);
+            if (tries++ < 5)
+            {
+                goto retry;
+            }
+            else throw new AggregateException(ex);
+        }
+    }
+}

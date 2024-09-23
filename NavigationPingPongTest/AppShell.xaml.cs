@@ -1,0 +1,11 @@
+﻿namespace NavigationPingPongTest
+{
+    public partial class AppShell : Shell
+    {
+        public AppShell()
+        {
+            InitializeComponent();
+            Routing.RegisterRoute($"{nameof(MainPage)}//{nameof(ChildPageA)}", typeof(ChildPageA));
+        }
+    }
+}
