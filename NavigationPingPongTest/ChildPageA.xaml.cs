@@ -14,21 +14,24 @@ public partial class ChildPageA : ContentPage
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-		await Task.Delay(App.PING_PONG_INTERVAL);
-        int tries = 1;
-        retry:
-        try
-		{
-			await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
-        }
-        catch (System.Runtime.InteropServices.COMException ex)
+        if (App.Current?.MainPage?.Handler != null)
         {
-            if (tries == 1) App.ReportError(ex);
-            if (tries++ < 5)
+            await Task.Delay(App.PING_PONG_INTERVAL);
+            int tries = 1;
+            retry:
+            try
             {
-                goto retry;
+                await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
             }
-            else throw new AggregateException(ex);
+            catch (System.Runtime.InteropServices.COMException ex)
+            {
+                if (tries == 1) App.ReportError(ex, sender: nameof(ChildPageA));
+                if (tries++ < 5)
+                {
+                    goto retry;
+                }
+                else throw new AggregateException(ex);
+            }
         }
     }
 }
