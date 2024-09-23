@@ -12,7 +12,7 @@ namespace NavigationPingPongTest
         }
         public Stopwatch Stopwatch { get;  } = new Stopwatch();
 #if __ANDROID__
-        public static TimeSpan PING_PONG_INTERVAL = TimeSpan.FromSeconds(5); 
+        public static TimeSpan PING_PONG_INTERVAL = TimeSpan.FromSeconds(2.5); 
 #else
         public static TimeSpan PING_PONG_INTERVAL = TimeSpan.FromSeconds(1);
 #endif
@@ -27,7 +27,7 @@ namespace NavigationPingPongTest
     }
     static partial class Extensions
     {
-        public static TimeSpan MinusPingPongInterval(this TimeSpan interval) =>
-            interval - App.PING_PONG_INTERVAL;
+        public static TimeSpan MinusPingPongIntervals(this TimeSpan interval) =>
+            interval - (2 * App.PING_PONG_INTERVAL);
     }
 }

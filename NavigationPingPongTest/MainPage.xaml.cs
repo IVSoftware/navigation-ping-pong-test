@@ -19,7 +19,6 @@ namespace NavigationPingPongTest
             base.OnNavigatedTo(args);
             if (App.Current?.MainPage?.Handler != null)
             {
-                await Task.Delay(App.PING_PONG_INTERVAL);
                 int tries = 1;
                 retry:
                 try
@@ -27,13 +26,14 @@ namespace NavigationPingPongTest
                     var builder = new StringBuilder();
                     if (_debugCount > 0)
                     {
-                        builder.Append($@"[{_stopwatch.Elapsed.MinusPingPongInterval():mm\:ss\.fff}] ");
+                        builder.Append($@"[{_stopwatch.Elapsed.MinusPingPongIntervals():mm\:ss\.fff}] ");
                     }
                     _debugCount++;
                     builder.Append($"Count = {_debugCount}");
                     var message = builder.ToString();
                     Debug.WriteLine(message);
                     labelMessage.Text = builder.ToString();
+                    await Task.Delay(App.PING_PONG_INTERVAL);
                     _stopwatch.Restart();
                     await Shell.Current.GoToAsync(nameof(ChildPageA));
                 }
