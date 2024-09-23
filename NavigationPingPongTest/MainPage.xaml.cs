@@ -27,7 +27,7 @@ namespace NavigationPingPongTest
                     var builder = new StringBuilder();
                     if (_debugCount > 0)
                     {
-                        builder.Append($@"[{_stopwatch.Elapsed:mm\:ss\.fff}] ");
+                        builder.Append($@"[{_stopwatch.Elapsed.MinusPingPongInterval():mm\:ss\.fff}] ");
                     }
                     _debugCount++;
                     builder.Append($"Count = {_debugCount}");
@@ -39,7 +39,10 @@ namespace NavigationPingPongTest
                 }
                 catch (System.Runtime.InteropServices.COMException ex)
                 {
-                    if (tries == 1) App.ReportError(ex, sender: nameof(MainPage));
+                    if (tries == 1)
+                    {
+                       labelError.Text = App.ReportError(ex, sender: nameof(MainPage));
+                    }
                     if (tries++ < 5)
                     {
                         goto retry;

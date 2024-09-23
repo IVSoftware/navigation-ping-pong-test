@@ -17,11 +17,12 @@ namespace NavigationPingPongTest
         public static TimeSpan PING_PONG_INTERVAL = TimeSpan.FromSeconds(1);
 #endif
         private static uint _comExceptionCount = 0;
-        public static void ReportError(Exception ex, string sender, [CallerMemberName] string? caller = null)
+        public static string ReportError(Exception ex, string sender, [CallerMemberName] string? caller = null)
         {
             _comExceptionCount++;
-            Debug.WriteLine
-                ($"{ex.GetType().Name} Count={_comExceptionCount} Caller={sender}.{caller}{Environment.NewLine}{ex.Message}");
+            var message = $"{ex.GetType().Name} Count={_comExceptionCount} Caller={sender}.{caller}{Environment.NewLine}{ex.Message}";
+            Debug.WriteLine(message);
+            return message;
         }
     }
     static partial class Extensions
