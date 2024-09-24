@@ -7,7 +7,7 @@ ___
 _This borrows a term from a criminal investigation, and is a reference to the "smoking gun" that proves "who did the crime"._
 ___
 
-In this case, the line is `builder.Services.AddSingleton<ChildPageA>()`. If the singleton is disabled by un-checking `USE_SINGLETON` then, the COM error goes away.
+In this case, the line is `builder.Services.AddSingleton<ChildPageA>()`. If the `USE_SINGLETON` conditional compile symbol is unchecked it disables the this line in code and this reliably makes the COM error go away.
 
 ![Conditional Compile Symbols](NavigationPingPongTest/Screenshots/conditional-compile-symbols.png)
 
