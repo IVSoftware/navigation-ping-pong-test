@@ -60,3 +60,9 @@ protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     }
 }
 ```
+
+___
+
+##### What is the difference between Maui AddTransient and AddSingleton?
+
+AddTransient will create a new instance of the object each time it is requested. AddSingleton will return a single/reusable instance of an object.
