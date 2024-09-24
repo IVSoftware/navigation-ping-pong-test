@@ -18,7 +18,9 @@ namespace NavigationPingPongTest
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+#if USE_SINGLETON
             builder.Services.AddSingleton<ChildPageA>();
+#endif
             return builder.Build();
         }
     }

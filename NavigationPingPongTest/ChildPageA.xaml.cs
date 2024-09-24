@@ -8,12 +8,18 @@ public partial class ChildPageA : ContentPage
 	public ChildPageA()
 	{
 		_instanceCounter++;
-		Debug.Assert(_instanceCounter <= 1, "Expecting only one instance of this class.");
+#if !USE_SINGLETON
+        Debug.Assert(_instanceCounter <= 1, "Expecting only one instance of this class.");
+#endif
 		InitializeComponent();
 	}
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
+
+        // If the loop is running, and we try to close the app, it's
+        // possible to cause an exception by trying to navigate when
+        // the main window handle has already disposed, so we check.
         if (App.Current?.MainPage?.Handler != null)
         {
             await Task.Delay(App.PING_PONG_INTERVAL);
