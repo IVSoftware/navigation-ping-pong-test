@@ -8,7 +8,7 @@ public partial class ChildPageA : ContentPage
 	public ChildPageA()
 	{
 		_instanceCounter++;
-#if !USE_SINGLETON
+#if USE_SINGLETON
         Debug.Assert(_instanceCounter <= 1, "Expecting only one instance of this class.");
 #endif
 		InitializeComponent();
