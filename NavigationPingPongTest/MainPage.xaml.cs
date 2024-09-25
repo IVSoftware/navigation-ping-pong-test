@@ -14,6 +14,13 @@ namespace NavigationPingPongTest
             Debug.Assert(_instanceCounter <= 1, "Expecting only one instance of this class.");
             InitializeComponent();
         }
+#if ABSTRACT        
+[00:00.959] Count = 46228
+COMException Count=1497 Caller=MainPage.OnNavigatedTo
+
+But this version NEVER got the warning:
+The RealParent on Microsoft.Maui.Controls.Shapes.Rectangle has been Garbage Collected. This should never happen.
+#endif
         protected override async void OnNavigatedTo(NavigatedToEventArgs args)
         {
             base.OnNavigatedTo(args);
